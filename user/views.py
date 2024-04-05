@@ -25,6 +25,10 @@ def SignupPage(request):
         dob = request.POST.get('dob')
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
+
+        if not (username and name and email and phone and dob and pass1 and pass2):
+            return render(request, 'signup.html', {'error_message': "Please fill in all the fields."})
+
         if pass1 != pass2:
             return render(request, 'signup.html', {'error_message': "Passwords do not match. Please try again."})
 
@@ -42,7 +46,7 @@ def SignupPage(request):
                 # Create a UserProfile instance for the new user
                 UserProfile.objects.create(user=my_user, phone=phone, dob=dob)
 
-                return redirect('login')
+                return render(request, 'signup_success.html', {'message': "Signup successful. You can now log in."})
             except IntegrityError:
                 return render(request, 'signup.html', {'error_message': "Username already exists. Please choose a different username."})
 
@@ -88,6 +92,6 @@ def ForgotPassword(request):
 
             my_user.set_password(rpass1)
             my_user.save()
-            return redirect('login')
+            return render(request, 'password_change_success.html', {'message': "Password changed successfully. You can now log in."})
 
     return render(request, 'forgotpassword.html')
