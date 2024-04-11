@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Change Password
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full mt-20">
+    <h1 class="text-3xl font-semibold tracking-tight first:mt-0">Change Password</h1>
+</div>
+<form id='profile' onsubmit="handleUpdatePassword(event)" method="post" class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 w-[80%] mx-auto">
+    <div class="flex flex-col space-y-1">
+        <label for="currentPass"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Current Password:</label>
+        <input type="password" id="currentPass" name="currentPass" required
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="flex flex-col space-y-1">
+        <label for="newPass"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">New Password:</label>
+        <input type="password" id="newPass" name="newPass" required
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="flex flex-col space-y-1">
+        <label for="newPass2"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Confirm New Password:</label>
+        <input type="password" id="newPass2" name="newPass2" required
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="fixed bottom-4 w-full">
+        <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">Update Password</button>
+    </div>
+</form>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}
