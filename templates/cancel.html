@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Payment Cancel
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="container mx-auto max-w-md px-4 py-8 mt-20">
+    <div class="text-center">
+        <h1 class="text-3xl font-bold text-red-500">Payment Cancelled</h1>
+        <p class="text-gray-600 mt-4">Your recent payment has been cancelled.</p>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-red-500 mt-6" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-5.707l-7-7a1 1 0 00-1.414 1.414L8.586 11H3a1 1 0 00-1-1V8a1 1 0 001-1h5.586L2.293 4.293a1 1 0 001.414 1.414z"
+                clip-rule="evenodd" />
+        </svg>
+    </div>
+    <div class="text-center mt-8">
+        <a href="/" class="w-auto px-4 py-2 bg-purple-800 text-white h-10 rounded-lg">Return to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

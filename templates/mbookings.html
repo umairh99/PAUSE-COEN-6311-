@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load tag %}
+
+{% block title %}
+My bookings
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+{% for item in items %}
+<div class="max-w-xl mx-auto overflow-hidden my-20 border-b">
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Bookings Details</h2>
+        <p class="text-gray-600">Booking Data: {{item.booking_date}}</p>
+        {% if item.package.name %}<p class="text-gray-600">Name: {{item.package.name|title}}</p>{% endif %}
+        {% if item.package.description %}<p class="text-gray-600">Description: {{item.package.description}}</p>{% endif%}
+        <p class="text-gray-600">Price: ${{item.total_cost}}</p>
+    </div>
+    <div class="px-6 py-6">
+        <h2 class="text-xl font-bold mb-2">User Detail</h2>
+        <ul>
+            {% if item.customer.picture %}
+            <img src="{{item.customer.picture.url}}" alt="pic" class="w-20 h-20 overflow-hidden rounded-lg">
+            {% endif %}
+            <li>First Name: {{item.customer.first_name}}</li>
+            <li>Last Name: {{item.customer.last_name}}</li>
+            <li>Phone Number: {{item.customer.phone}}</li>
+            <li>Email Address: {{item.customer.email}}</li>
+        </ul>
+    </div>
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Package Details </h2>
+        {% if item.package.hotels.all or item.custom.hotels.all %}
+        <div class="overflow-x-auto mb-4 text-sm">
+            <h2 class="text-xl font-bold mb-2">Hotel Details</h2>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Location</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Agency</th>
+                    </tr>
+                </thead>
+                <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                    {% for item in item.package.hotels.all %}
+                    <tr class="h-14">
+                        <td><a href="/hotels/{{item.id}}">{{item.name}}</a></td>
+                        <td>{{item.location}}</td>
+                        <td>{{item.price_per_night}}</td>
+                        <td>{{item.agency.name}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for item in item.custom.hotels.all %}
+                    <tr class="h-14">
+                        <td><a href="/hotels/{{item.id}}">{{item.name}}</a></td>
+                        <td>{{item.location}}</td>
+                        <td>{{item.price_per_night}}</td>
+                        <td>{{item.agency.name}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if item.package.flights.all or item.custom.flights.all %}
+    <div class="overflow-x-auto mb-4 text-sm">
+        <h2 class="text-xl font-bold mb-2">Flight Details</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Airline</th>
+                    <th class="px-4 py-2">Departure</th>
+                    <th class="px-4 py-2">Arrival</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Agency</th>
+                </tr>
+            </thead>
+            <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                {% for item in item.package.flights.all %}
+                <tr class="h-14">
+                    <td><a href="/flights/{{item.id}}">{{item.airline}}</a></td>
+                    <td>{{item.departure}}</td>
+                    <td>{{item.arrival}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+                {% for item in item.custom.flights.all %}
+                <tr class="h-14">
+                    <td><a href="/flights/{{item.id}}">{{item.airline}}</a></td>
+                    <td>{{item.departure}}</td>
+                    <td>{{item.arrival}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if item.package.activities.all or item.custom.activities.all %}
+    <div class="overflow-x-auto mb-4 text-sm">
+        <h2 class="text-xl font-bold mb-2">Activities Details</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Location</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Agency</th>
+                </tr>
+            </thead>
+            <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                {% for item in item.package.activities.all %}
+                <tr class="h-14">
+                    <td><a href="/activities/{{item.id}}">{{item.name}}</a></td>
+                    <td>{{item.location}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+                {% for item in item.custom.activities.all %}
+                <tr class="h-14">
+                    <td><a href="/activities/{{item.id}}">{{item.name}}</a></td>
+                    <td>{{item.location}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    </div>
+    <p class="px-4 py-2 bg-green-100 rounded-lg text-green-500 mb-5">
+        <i class="fa fa-check w-6 h-6"></i>
+        Payment successfull
+    </p>
+</div>
+{% endfor %}
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}

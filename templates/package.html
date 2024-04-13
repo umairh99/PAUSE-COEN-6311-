@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{item.name}}
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="max-w-xl mx-auto overflow-hidden my-20">
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Package Details</h2>
+        <p class="text-gray-600">Name: {{item.name|title}}</p>
+        <p class="text-gray-600">Description: {{item.description}}</p>
+        <p class="text-gray-600">Price: ${{item.price}}</p>
+    </div>
+    {% if item.hotels.all %}
+    <div class="overflow-x-auto mb-4 text-sm">
+        <h2 class="text-xl font-bold mb-2">Hotel Details</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Location</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Agency</th>
+                </tr>
+            </thead>
+            <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                {% for item in item.hotels.all %}
+                <tr class="h-14">
+                    <td><a href="/hotels/{{item.id}}">{{item.name}}</a></td>
+                    <td>{{item.location}}</td>
+                    <td>{{item.price_per_night}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if item.flights.all %}
+    <div class="overflow-x-auto mb-4 text-sm">
+        <h2 class="text-xl font-bold mb-2">Flight Details</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Airline</th>
+                    <th class="px-4 py-2">Departure</th>
+                    <th class="px-4 py-2">Arrival</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Agency</th>
+                </tr>
+            </thead>
+            <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                {% for item in item.flights.all %}
+                <tr class="h-14">
+                    <td><a href="/flights/{{item.id}}">{{item.airline}}</a></td>
+                    <td>{{item.departure}}</td>
+                    <td>{{item.arrival}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if item.activities.all %}
+    <div class="overflow-x-auto mb-4 text-sm">
+        <h2 class="text-xl font-bold mb-2">Activities Details</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Location</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Agency</th>
+                </tr>
+            </thead>
+            <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                {% for item in item.activities.all %}
+                <tr class="h-14">
+                    <td><a href="/activities/{{item.id}}">{{item.name}}</a></td>
+                    <td>{{item.location}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.agency.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Agency Details</h2>
+        <p class="text-gray-600">Name: {{item.agency.name|title}}</p>
+        <p class="text-gray-600">Address: {{item.agency.address|title}}</p>
+        <p class="text-gray-600">Phone: {{item.agency.phone}}</p>
+        <p class="text-gray-600">Email: {{item.agency.email}}</p>
+        <p class="text-gray-600">Registration ID: {{item.agency.registrationid}}</p>
+        <p class="text-gray-600">Agent: {{item.agency.agent.first_name|title}} {{item.agency.agent.last_name|title}}</p>
+        <p class="text-gray-600">Agent email: {{item.agency.agent.email}}</p>
+    </div>
+    <div class="fixed bottom-0 pb-4 w-full bg-white">
+        <form id='book' onsubmit="handleCreate(event, 'my-bookings/', 'book', red='/my-bookings')">
+            <input type="hidden" name="package" value="{{item.id}}" />
+            <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">
+                Book Now
+                <i class="fa fa-arrow-right w-7 h-2"></i>
+            </button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}

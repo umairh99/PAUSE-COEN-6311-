@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+My Agency
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full mt-20">
+    <h1 class="text-3xl font-semibold tracking-tight first:mt-0">Agency</h1>
+</div>
+<form id='agency' onsubmit="handleCreateUpdateAgency(event, '{{name}}')"
+    class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 w-[80%] mx-auto">
+    <div class="flex flex-col space-y-1">
+        <label for="name"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name:</label>
+        <input type="text" id="name" name="name" required value="{{name}}"
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="flex flex-col space-y-1">
+        <label for="address"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Address:</label>
+        <input type="text" id="address" name="address" required value="{{address}}"
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="flex flex-col space-y-1">
+        <label for="phone"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Phone:</label>
+        <input type="text" id="phone" name="phone" required value="{{phone}}"
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="flex flex-col space-y-1">
+        <label for="email"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email
+            Address:</label>
+        <input type="email" id="email" name="email" required value="{{email}}"
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="flex flex-col space-y-1">
+        <label for="registerid"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Registration
+            Id:</label>
+        <input type="text" id="registrationid" name="registrationid" required value="{{registrationid}}"
+            class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+    </div>
+    <div class="fixed bottom-4 w-full">
+        <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">
+            {% if name %}
+            Update
+            {% else %}
+            Create
+            {% endif %}
+            agency
+        </button>
+        {% if name %}
+        <button type="button" onclick="handleDeleteAgency()" class="w-auto px-4 bg-red-800 text-white h-10 rounded-lg">
+            Delete agency
+        </button>
+        {% endif %}
+    </div>
+
+</form>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}

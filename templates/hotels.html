@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Hotels
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full mt-20">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-4">Hotels Data</h2>
+        <div class="overflow-x-auto mb-4 text-sm">
+            <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Location</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Agency</th>
+                    </tr>
+                </thead>
+                <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                    {% for item in items %}
+                    <tr class="h-14">
+                        <td><a href="/hotels/{{item.id}}">{{item.name}}</a></td>
+                        <td>{{item.location}}</td>
+                        <td>{{item.price_per_night}}</td>
+                        <td><a href="/agencies/{{item.agency.id}}">{{item.agency.name}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
