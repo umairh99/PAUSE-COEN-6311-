@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.generics import GenericAPIView, CreateAPIView
 from .models import Agency, Flight, Hotel, Activity, Photo, Package, CustomPackage, Booking, Payment
@@ -369,3 +370,8 @@ class SearchView(GenericAPIView):
             'hotels': hotel_serializer.data,
             'activities': activity_serializer.data
         })
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> 612509013d59fa6c3a9c417f33d45b0f1f072252
