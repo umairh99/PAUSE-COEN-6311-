@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load tag %}
+
+{% block title %}
+{{item.name}}
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full my-20">
+    <h3 class="text-2xl font-semibold tracking-tight">{{item.name|title}}</h3>
+    <form id='pld' onsubmit="handleUpdate(event, 'manage/packages/{{item.id}}/', 'pld')" method="post"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        <div class="flex flex-col space-y-1">
+            <label for="name"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name:</label>
+            <input type="text" id="name" name="name" required value="{{item.name}}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="desc"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Description:</label>
+            <textarea type="text" id="desc" name="description" required rows="4"
+                class="text-black flex  w-full rounded-md border border-input bg-[#ffffffaa] py-1 px-3 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">{{item.description}}</textarea>
+        </div>
+        <div class="flex flex-col space-y-1">
+            {% if 2 in item.hotels %}hi{% endif %}
+            <label for="Hotels"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Hotels:</label>
+            <select type="text" id="hos" name="hotels" multiple="multiple" 
+                class="text-black flex  w-full rounded-md border border-input bg-[#ffffffaa] py-1 px-3 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                {% for hotel in item.agency.hotel_set.all%}
+                <option value="{{hotel.id}}" {% if hotel.id in item.hotels.all|values %}selected{% endif %}>
+                    <ul>
+                        <li>{{hotel.name}}</li>
+                        <li>{{hotel.location}}</li>
+                        <li>{{hotel.price_per_night}}</li>
+                    </ul>
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="Flights"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Flights:</label>
+            <select type="text" id="fos" name="flights" multiple="multiple"
+                class="text-black flex  w-full rounded-md border border-input bg-[#ffffffaa] py-1 px-3 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                {% for flight in item.agency.flight_set.all%}
+                <option value="{{flight.id}}"  {% if flight.id in item.flights.all|values %}selected{% endif %}>
+                    <ul>
+                        <li>{{flight.airline}}</li>
+                        <li>{{hotel.price}}</li>
+                    </ul>
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="activities"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Activities:</label>
+            <select type="text" id="fos" name="activities" multiple="multiple"
+                class="text-black flex  w-full rounded-md border border-input bg-[#ffffffaa] py-1 px-3 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                {% for activity in item.agency.activity_set.all%}
+                <option value="{{activity.id}}" {% if activity.id in item.activities.all|values %}selected{% endif %}>
+                    <ul>
+                        <li>{{activity.name}}</li>
+                        <li>{{activity.location}}</li>
+                        <li>{{activity.price}}</li>
+                    </ul>
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="name"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Price:</label>
+            <input type="text" required readonly value="{{item.price}}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="fixed bottom-4 w-full">
+            <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">
+                Update package
+            </button>
+            <button type="button" onclick="handleDelete(event, 'manage/packages/{{item.id}}/', 'manage/packages/')"
+                class="w-auto px-4 bg-red-800 text-white h-10 rounded-lg">
+                Delete package
+            </button>
+        </div>
+    </form>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}

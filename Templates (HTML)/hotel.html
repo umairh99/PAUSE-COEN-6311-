@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{item.name}}
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="max-w-xl mx-auto overflow-hidden my-20">
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Hotel Details</h2>
+        <p class="text-gray-600">Name: {{item.name|title}}</p>
+        <p class="text-gray-600">Location: {{item.location}}</p>
+        <p class="text-gray-600">Price per night: ${{item.price_per_night}}</p>
+    </div>
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Agency Details</h2>
+        <p class="text-gray-600">Name: {{item.agency.name|title}}</p>
+        <p class="text-gray-600">Address: {{item.agency.address|title}}</p>
+        <p class="text-gray-600">Phone: {{item.agency.phone}}</p>
+        <p class="text-gray-600">Email: {{item.agency.email}}</p>
+        <p class="text-gray-600">Registration ID: {{item.agency.registrationid}}</p>
+        <p class="text-gray-600">Agent: {{item.agency.agent.first_name|title}} {{item.agency.agent.last_name|title}}</p>
+        <p class="text-gray-600">Agent email: {{item.agency.agent.email}}</p>
+    </div>
+    <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-2">Pictures</h2>
+        <div class="grid grid-cols-3 gap-4">
+            {% for picture in item.pictures.all%}
+            <img src="{{picture.img.url}}" alt="Picture 1" class="w-full h-auto">
+            {% endfor %}
+        </div>
+    </div>
+    <div class="fixed bottom-0 pb-4 w-full bg-white">
+        <form id="addp" onsubmit="handleAddPackage(event)" class="inline">
+            <select multiple="multiple" name="hotels" class="hidden">
+                <option value="{{item.id}}" selected>{{item.name}}</option>
+            </select>
+            <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">
+                Add to my package
+                <i class="fa fa-arrow-right w-7 h-2"></i>
+            </button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}

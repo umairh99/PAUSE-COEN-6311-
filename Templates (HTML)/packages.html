@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Packages
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full mt-20">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-4">Packages</h2>
+        <div class="overflow-x-auto mb-4 text-sm">
+            <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Hotels</th>
+                        <th class="px-4 py-2">Flights</th>
+                        <th class="px-4 py-2">Activities</th>
+                        <th class="px-4 py-2">Agency</th>
+                    </tr>
+                </thead>
+                <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                    {% for item in items %}
+                    <tr class="h-14">
+                        <td><a href="/packages/{{item.id}}">{{item.name}}</a></td>
+                        <td>{{item.price}}</td>
+                        <td>
+                            <ul class="flex flex-col space-y-1">
+                                {% if item.hotels.all %}
+                                {% for hotel in item.hotels.all %}
+                                <li>{{hotel.name}}</li>
+                                {% endfor %}
+                                {% else %}
+                                <li>No hotel in package</li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="flex flex-col space-y-1">
+                                {% if item.flights.all %}
+                                {% for flight in item.flights.all %}
+                                <li>{{flight.airline}}</li>
+                                {% endfor %}
+                                {% else %}
+                                <li>No flight in package</li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="flex flex-col space-y-1">
+                                {% if item.activities.all %}
+                                {% for ac in item.activities.all %}
+                                <li>{{ac.name}}</li>
+                                {% endfor %}
+                                {% else %}
+                                <li>No activity in package</li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td><a href="/agencies/{{item.agency.id}}">{{item.agency.name}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
