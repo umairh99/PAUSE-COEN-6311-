@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{item.name}}
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full my-20">
+    <h3 class="text-2xl font-semibold tracking-tight">{{item.name|title}}</h3>
+    <form id='ald' onsubmit="handleUpdate(event, 'manage/activites/{{item.id}}/', 'ald')" method="post"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        <div class="flex flex-col space-y-1">
+            <label for="name"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name:</label>
+            <input type="text" id="name" name="name" required value="{{item.name}}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="departure"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Location:</label>
+            <input type="text" id="location" name="location" required value="{{item.location}}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for=" price"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Price:</label>
+            <input type="text" id=" price" name=" price" required value="{{item.price}}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="fixed bottom-4 w-full">
+            <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">
+                Update activity
+            </button>
+            <button type="button" onclick="handleDelete(event, 'manage/activites/{{item.id}}/', 'manage/activites/')"
+                class="w-auto px-4 bg-red-800 text-white h-10 rounded-lg">
+                Delete activity
+            </button>
+        </div>
+    </form>
+
+    <div class="grid grid-cols-3 gap-4 mt-10">
+        <p class="col-span-full">Images:</p>
+        {% if item.pictures.all%}
+        {% for image in item.pictures.all %}
+        <img src="{{image.img.url}}" alt="images" class="h-40 w-full">
+        {%endfor%}
+        {% endif %}
+        <button class="bg-stone-300 px-4 py-2 rounded-lg h-40 text-sm" onclick="handleshowhide()">Add Image</button>
+    </div>
+</div>
+<dialog id="dialog" class="shadow-lg p-5 rounded w-[60%] absolute top-0">
+    <div class="flex items-center justify-center">
+        <h3 class="text-lg font-semibold tracking-tight w-full">Upload Image</h3>
+        <button onclick="handleshowhide()">
+            <i class="fa fa-close w-4 h-4 text-black"></i>
+        </button>
+    </div>
+    <form id='photo' onsubmit="handleUploadImage(event, 'manage/image/', 'photo')"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        <div class="flex flex-col space-y-1 col-span-full">
+            <input type="hidden" name="activity" value="{{item.id}}">
+            <label for="airline"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Images:</label>
+            <input type="file" id="images" name="images" required multiple="multiple"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <button type="submit" class="col-span-full  px-4 bg-purple-800 text-white h-8 rounded-lg">Upload Image</button>
+    </form>
+</dialog>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}

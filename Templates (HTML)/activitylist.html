@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+activites
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full mt-20">
+    <div class="max-w-7xl mx-auto">
+
+        <h2 class="text-2xl font-semibold mb-4">Activites Data</h2>
+        <div class="mb-4 flex items-center space-x-5">
+            <form class="w-full flex items-center space-x-2">
+                <input type="search" id="searchInput"
+                    class="text-black flex w-[60%] h-9 rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                    placeholder="Search..." name="search" value="{{ request.GET.search }}">
+                <button type="submit" class="h-9 w-9 bg-slate-100 rounded-lg shadow-sm">
+                    <i class="fa fa-search w-4 h-4"></i>
+                </button>
+            </form>
+            <button onclick="handleshowhide()"
+                class="bg-purple-800 flex items-center text-white font-bold h-9 px-4 text-sm rounded">
+                <i class="fa fa-plus w-2 h-2 mr-2"></i>
+                Add
+            </button>
+        </div>
+
+        <div class="overflow-x-auto mb-4 text-sm">
+            <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Location</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Agency</th>
+                    </tr>
+                </thead>
+                <tbody id="flightsTableBody" class="divide-y divide-gray-200 capitalize text-center">
+                    {% for item in items %}
+                    <tr class="h-14">
+                        <td><a href="/manage/activites/{{item.id}}">{{item.name}}</a></td>
+                        <td>{{item.location}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.agency.name}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<dialog id="dialog" class="shadow-lg p-5 rounded w-[60%] absolute top-0">
+    <div class="flex items-center justify-center">
+        <h3 class="text-lg font-semibold tracking-tight w-full">Create Activity</h3>
+        <button onclick="handleshowhide()">
+            <i class="fa fa-close w-4 h-4 text-black"></i>
+        </button>
+    </div>
+    <form id='activites' onsubmit="handleCreate(event, 'manage/activites/', 'activites')" method="post"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        <div class="flex flex-col space-y-1">
+            <label for="name"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name:</label>
+            <input type="text" id="name" name="name" required
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="departure"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Location:</label>
+            <input type="text" id="location" name="location" required
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for=" price"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Price:</label>
+            <input type="text" id="price" name=" price" required
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <button type="submit" class="col-span-full  px-4 bg-purple-800 text-white h-8 rounded-lg">Create Activity</button>
+    </form>
+</dialog>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}
