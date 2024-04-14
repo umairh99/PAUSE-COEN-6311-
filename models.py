@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy as _
-from .manager import UserManager
+from .security.manager import UserManager
 
 Image_extension_validator = FileExtensionValidator(
     allowed_extensions=['jpg', 'jpeg', 'png', 'gif'],

@@ -1,6 +1,6 @@
 from django.db import models
 <<<<<<< HEAD
-from security.models import User, Image_extension_validator, picture_path
+from models import User, Image_extension_validator, picture_path
 
 
 class Agency(models.Model):
@@ -59,7 +59,7 @@ class Activity(models.Model):
     def __str__(self) -> str:
         return str(self.name)
 =======
-from security.models import User
+from models import User
 >>>>>>> 612509013d59fa6c3a9c417f33d45b0f1f072252
 
 

@@ -2,7 +2,7 @@
 
 import django.core.validators
 import django.db.models.deletion
-import security.models
+import models
 from django.conf import settings
 from django.db import migrations, models
 
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name='Photo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('img', models.ImageField(blank=True, upload_to=security.models.picture_path, validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif'], message='Upload an image file (JPG, JPEG, PNG, GIF) only.')])),
+                ('img', models.ImageField(blank=True, upload_to=models.picture_path, validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif'], message='Upload an image file (JPG, JPEG, PNG, GIF) only.')])),
             ],
         ),
         migrations.CreateModel(
