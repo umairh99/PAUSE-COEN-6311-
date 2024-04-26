@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+My profile
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% load static %}
+<div class="w-[90%] mx-auto h-full mt-20">
+    <h1 class="text-3xl font-semibold tracking-tight first:mt-0">My Profile</h1>
+    <form id='profile' onsubmit="handleUpdateProfile(event)" method="post" class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        {% csrf_token %}
+        <div class="h-32 w-full col-span-full flex flex-row items-center justify-between">
+            <div>
+                <p class="text-xl font-semibold tracking-tight">Profile Picture</p>
+                <p>Customize your account.</p>
+            </div>
+            <div class="relative">
+                {% if picture %}
+                <img src="{{picture}}" alt="profile picture"
+                    class="w-20 h-20 rounded-full overflow-hidden"
+                >
+                {% else %}
+                <img src="{% static 'null.png' %}" alt="profile picture"
+                    class="w-20 h-20 rounded-full overflow-hidden object-cover"
+                >
+                {% endif %}
+                <label for="picture" class="absolute bottom-0 left-0 bg-purple-800 rounded-full w-8 h-8 cursor-pointer">
+                    <div class="flex items-center justify-center w-full h-full">
+                        <i class="fa fa-camera h-4 w-4 text-white" aria-hidden="true"></i>
+                    </div>
+                </label>
+                <input type="file" name="picture" id="picture" class="hidden">
+            </div>
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="email"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email address:</label>
+            <input type="text" id="email" name="email" required value="{% if email %}{{ email }}{% endif %}" readonly
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="phone"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Phone number:</label>
+            <input type="text" id="phone" name="phone" required value="{% if phone %}{{ phone }}{% endif %}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="first_name"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">First name:</label>
+            <input type="text" id="first_name" name="first_name" required value="{% if first_name %}{{ first_name }}{% endif %}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="last_name"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Last name:</label>
+            <input type="text" id="last_name" name="last_name" required
+                value="{% if last_name %}{{ last_name }}{% endif %}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="gender"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Gender:</label>
+            <select type="text" id="gender" name="gender" 
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                <option >Select gender</option>
+                <option {% if gender == 'm' %}selected{% endif %} value="m">Male</option>
+                <option {% if gender == 'f' %}selected{% endif %} value="f">Female</option>
+                <option {% if gender == 'p_n_t_s' %}selected{% endif %} value="p_n_t_s">Prefer not to say</option>
+                <option {% if gender == 'o' %}selected{% endif %}  value="o">Others</option>
+            </select>
+        </div>
+        <div class="flex flex-col space-y-1">
+            <label for="pincode"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Pincode:</label>
+            <input type="text" id="pincode" name="pincode" required
+                value="{% if pincode %}{{ pincode }}{% endif %}"
+                class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        </div>
+        <div class="fixed bottom-4 w-full">
+            <button type="submit" class="w-auto px-4 bg-purple-800 text-white h-10 rounded-lg">Update profile</button>
+        </div>
+    </form>
+    <p class="my-5">Last Login: {{last_login }}</p>
+</div>
+<script src="{% static 'js/action.js' %}"></script>
+{% endblock %}
