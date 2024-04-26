@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: ray1@outlook.com
+Date: Sun, 14 Apr 2024 19:14:54 -0000
+Message-ID: 
+ <171312209461.28728.8463624555724185313@DESKTOP-ARIOFAQ.wireless.concordia.ca>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/account/reset/cmF5MUBvdXRsb29rLmNvbQ/c5hbou-89f2cca5361b7a4a12425416cb5af9ad/
+
+Your username, in case you’ve forgotten: ray1@outlook.com
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

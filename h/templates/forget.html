@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Forget Password | CONCORDIA BOOKING{% endblock %}
+
+{% block body %}
+<div class="">
+    <a href="/" class=" h-14">
+        <img src="{% static 'logo.png' %}" alt="logo" loading="lazy" class="w-auto h-20 rounded">
+    </a>
+    <div class="flex items-center justify-center h-[80vh] ">
+        <form action="/account/forget/" class=" space-y-4 flex flex-col justify-center w-[90%] lg:w-[30%]
+            bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-5 rounded-lg
+            " method="post">
+            {% csrf_token %}
+            <h3 class="text-2xl font-semibold tracking-tight">Forget Password</h3>
+            <div class="flex flex-col space-y-1">
+                <label for="email"
+                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email
+                    address:</label>
+                <input type="email" id="email" name="email" required value="{% if email %}{{ email }}{% endif %}"
+                    class="text-black flex h-9 w-full rounded-md border border-input bg-[#ffffffaa] px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+            </div>
+            {% if error %}
+            <p class="text-xs text-red-700 bg-red-100 rounded p-2">{{error}}</p>
+            {% endif %}
+            <button type="submit" class="w-full bg-purple-800 text-white h-10 rounded-lg ">Get OTP</button>
+            <div class="text-sm">
+                I remmber my password
+                <a href="/account/login" class="underline pl-4">Login</a>
+            </div>
+        </form>
+    </div>
+    <footer class="flex items-center justify-center space-x-5 text-sm">
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/help">Need Help</a>
+        <a href="/about">About Us</a>
+        <a href="/report">Report</a>
+    </footer>
+</div>
+
+{% endblock%}
